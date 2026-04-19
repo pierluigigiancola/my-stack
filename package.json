@@ -12,7 +12,10 @@
     "test": "vitest run",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "deploy": "pnpm run build && wrangler deploy"
+    "deploy": "pnpm run build && wrangler deploy",
+    "supabase:start": "supabase start -x realtime,storage-api,imgproxy,mailpit,edge-runtime,vector,supavisor",
+    "supabase:local:migrate": "supabase db diff --local --schema public > \"./supabase/migrations/$(date -z utc '+%Y%m%d%H%M%S')_from_public.sql\"",
+    "supabase:local:types": "supabase gen types typescript --local > ./src/supabase/database.types.ts"
   },
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.26.0",
@@ -22,6 +25,8 @@
     "@mantine/modals": "^9.0.2",
     "@mantine/notifications": "^9.0.2",
     "@posthog/react": "^1.7.0",
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.103.3",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/match-sorter-utils": "latest",
     "@tanstack/query-db-collection": "latest",
@@ -68,6 +73,7 @@
     "postcss-preset-mantine": "^1.18.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.8.1",
+    "supabase": "^2.92.1",
     "typescript": "^6.0.3",
     "vite": "^7.3.1",
     "vite-tsconfig-paths": "^5.1.4",
@@ -77,7 +83,8 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
-      "lightningcss"
+      "lightningcss",
+      "supabase"
     ]
   }
 }
