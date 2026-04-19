@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+
 import ParaglideLocaleSwitcher from './LocaleSwitcher.tsx'
 import ThemeToggle from './ThemeToggle.tsx'
 

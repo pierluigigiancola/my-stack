@@ -29,14 +29,12 @@ export default function Messages({
       {messages.map((msg: Message) => (
         <div
           key={msg.id}
-          className={`flex ${
-            msg.user === user ? 'justify-end' : 'justify-start'
-          }`}
+          className={`flex ${msg.user === user ? 'justify-end' : 'justify-start'
+            }`}
         >
           <div
-            className={`flex items-start space-x-3 max-w-xs lg:max-w-md ${
-              msg.user === user ? 'flex-row-reverse space-x-reverse' : ''
-            }`}
+            className={`flex items-start space-x-3 max-w-xs lg:max-w-md ${msg.user === user ? 'flex-row-reverse space-x-reverse' : ''
+              }`}
           >
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium ${getAvatarColor(
@@ -47,17 +45,17 @@ export default function Messages({
             </div>
 
             <div
-              className={`px-4 py-2 rounded-2xl ${
-                msg.user === user
-                  ? 'bg-blue-500 text-white rounded-br-md'
-                  : 'bg-white text-gray-800 border border-gray-200 rounded-bl-md'
-              }`}
+              className={`px-4 py-2 rounded-2xl ${msg.user === user
+                ? 'bg-blue-500 text-white rounded-br-md'
+                : 'bg-white text-gray-800 border border-gray-200 rounded-bl-md'
+                }`}
             >
               {msg.user !== user && (
                 <p className="text-xs text-gray-500 mb-1 font-medium">
                   {msg.user}
                 </p>
               )}
+
               <p className="text-sm">{msg.text}</p>
             </div>
           </div>

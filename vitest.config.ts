@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
 import viteReact from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 import viteTsConfigPaths from 'vite-tsconfig-paths'
 // import { visualizer } from 'rollup-plugin-visualizer';
 
@@ -15,10 +15,10 @@ const config = defineConfig({
   ],
   // build: { sourcemap: true },
   test: {
-    globals: true,
     environment: 'jsdom',
+    globals: true,
     setupFiles: ['./vitest.setup.ts'],
-  }
+  },
 })
 
 export default config

@@ -50,7 +50,8 @@ export function TextField({
 
   return (
     <div>
-      <label htmlFor={label} className="block font-bold mb-1 text-xl">
+      <label htmlFor={label}
+        className="block font-bold mb-1 text-xl">
         {label}
 
         <input
@@ -79,7 +80,8 @@ export function TextArea({
 
   return (
     <div>
-      <label htmlFor={label} className="block font-bold mb-1 text-xl">
+      <label htmlFor={label}
+        className="block font-bold mb-1 text-xl">
         {label}
 
         <textarea
@@ -101,7 +103,10 @@ export function Select({
   values,
 }: {
   label: string
-  values: Array<{ label: string; value: string }>
+  values: Array<{
+    label: string;
+    value: string
+  }>
   placeholder?: string
 }) {
   const field = useFieldContext<string>()
@@ -109,7 +114,8 @@ export function Select({
 
   return (
     <div>
-      <label htmlFor={label} className="block font-bold mb-1 text-xl">
+      <label htmlFor={label}
+        className="block font-bold mb-1 text-xl">
         {label}
       </label>
 
@@ -121,7 +127,8 @@ export function Select({
         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
         {values.map((value) => (
-          <option key={value.value} value={value.value}>
+          <option key={value.value}
+            value={value.value}>
             {value.label}
           </option>
         ))}

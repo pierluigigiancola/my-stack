@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react'
+import type { Collection } from '@tanstack/react-db';
 import { useLiveQuery } from '@tanstack/react-db'
+import { useEffect, useRef } from 'react'
 
 import { messagesCollection } from '#/db-collections'
 import type { Message } from '#/db-collections';
 
-import type { Collection } from '@tanstack/react-db'
 
 function useStreamConnection(
   url: string,
@@ -24,13 +24,14 @@ function useStreamConnection(
       }
 
       const decoder = new TextDecoder()
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
         for (const chunk of decoder
           .decode(value, { stream: true })
           .split('\n')
-          .filter((chunk) => chunk.length > 0)) {
+          .filter((ch) => ch.length > 0)) {
           collection.insert(JSON.parse(chunk))
         }
       }
@@ -44,11 +45,11 @@ export function useChat() {
 
   const sendMessage = (message: string, user: string) => {
     fetch('/demo/db-chat-api', {
-      method: 'POST',
       body: JSON.stringify({
         text: message.trim(),
-        user: user.trim()
+        user: user.trim(),
       }),
+      method: 'POST',
     })
   }
 

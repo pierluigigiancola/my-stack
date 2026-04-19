@@ -1,8 +1,8 @@
 import { useState } from 'react'
 
-import { useChat, useMessages } from '#/hooks/demo.useChat'
-
 import Messages from './demo.messages'
+
+import { useChat, useMessages } from '#/hooks/demo.useChat'
 
 export default function ChatArea() {
   const { sendMessage } = useChat()
@@ -28,7 +28,9 @@ export default function ChatArea() {
   return (
     <>
       <div className="px-4 py-6 space-y-4">
-        <Messages messages={messages} user={user} />
+        <Messages
+          messages={messages}
+          user={user} />
       </div>
 
       <div className="bg-white border-t border-gray-200 px-4 py-4">
@@ -39,7 +41,9 @@ export default function ChatArea() {
             className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="Alice">Alice</option>
-            <option value="Bob">Bob</option>
+
+            <option value="Bob">
+              Bob</option>
           </select>
 
           <div className="flex-1 relative">
