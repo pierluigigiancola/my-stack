@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@inlang/paraglide-js": "^2.13.1",
+    "@playwright/test": "^1.59.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@tanstack/devtools-event-client": "latest",
     "@tanstack/devtools-vite": "latest",
