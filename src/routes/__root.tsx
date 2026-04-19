@@ -1,3 +1,5 @@
+import { createTheme, ColorSchemeScript, mantineHtmlProps, MantineProvider } from '@mantine/core'
+import mantineCss from '@mantine/core/styles.css?url';
 import { TanStackDevtools } from '@tanstack/react-devtools'
 import type { QueryClient } from '@tanstack/react-query'
 import {
@@ -7,22 +9,22 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
-import Footer from '../components/Footer'
-import Header from '../components/Header'
-import PostHogProvider from '../integrations/posthog/provider'
-import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
-import StoreDevtools from '../lib/demo-store-devtools'
-import appCss from '../styles.css?url'
-
+import Footer from '#/components/Footer'
+import Header from '#/components/Header'
+import PostHogProvider from '#/integrations/posthog/provider'
+import TanStackQueryDevtools from '#/integrations/tanstack-query/devtools'
+import StoreDevtools from '#/lib/demo-store-devtools'
 import { getLocale } from '#/paraglide/runtime'
-
+import appCss from '#/styles.css?url';
 
 
 interface MyRouterContext {
   queryClient: QueryClient
 }
 
-const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`
+const theme = createTheme({
+  /** Put your mantine theme override here */
+});
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   beforeLoad: async () => {
@@ -35,6 +37,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
   head: () => ({
     links: [
+      {
+        href: mantineCss,
+        rel: 'stylesheet',
+      },
       {
         href: appCss,
         rel: 'stylesheet',
@@ -58,36 +64,41 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang={getLocale()}
-      suppressHydrationWarning>
+    <html
+      {...mantineHtmlProps}
+      suppressHydrationWarning
+      lang={getLocale()}
+    >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
-
         <HeadContent />
+
+        <ColorSchemeScript />
       </head>
 
       <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
-        <PostHogProvider>
-          <Header />
+        <MantineProvider theme={theme}>
+          <PostHogProvider>
+            <Header />
 
-          {children}
+            {children}
 
-          <Footer />
+            <Footer />
 
-          <TanStackDevtools
-            config={{
-              position: 'bottom-right',
-            }}
-            plugins={[
-              {
-                name: 'Tanstack Router',
-                render: <TanStackRouterDevtoolsPanel />,
-              },
-              StoreDevtools,
-              TanStackQueryDevtools,
-            ]}
-          />
-        </PostHogProvider>
+            <TanStackDevtools
+              config={{
+                position: 'bottom-right',
+              }}
+              plugins={[
+                {
+                  name: 'Tanstack Router',
+                  render: <TanStackRouterDevtoolsPanel />,
+                },
+                StoreDevtools,
+                TanStackQueryDevtools,
+              ]}
+            />
+          </PostHogProvider>
+        </MantineProvider>
 
         <Scripts />
       </body>
