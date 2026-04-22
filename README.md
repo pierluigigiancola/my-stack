@@ -19,36 +19,30 @@ pnpm build
 
 ## Testing
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+This project uses [Vitest](https://vitest.dev/) for unit testing. You can run the tests with:
 
 ```bash
 pnpm test
 ```
 
-## Styling
+This project also uses [Playwright](https://playwright.dev/) for end-to-end testing. You can run the tests with:
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+```bash
+pnpm test:e2e
+```
 
-### Removing Tailwind CSS
+## Components and Styling
 
-If you prefer not to use Tailwind CSS:
-
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `pnpm add @tailwindcss/vite tailwindcss --dev`
+This project uses [Mantine UI](https://mantine.dev/) for ready to use components and styling solutions (CSS variables, theming).
 
 ## Linting & Formatting
 
-
-This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
+This project uses [eslint](https://eslint.org/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
 
 ```bash
 pnpm lint
-pnpm format
-pnpm check
+pnpm lint:fix
 ```
-
 
 # Paraglide i18n
 
@@ -68,7 +62,6 @@ This add-on wires up ParaglideJS for localized routing and message formatting.
 ### Optional Configuration
 
 - `VITE_POSTHOG_HOST` - Set this if you're using PostHog Cloud EU (`https://eu.i.posthog.com`) or self-hosting
-
 
 
 ## Routing
@@ -213,9 +206,29 @@ function PeopleComponent() {
 
 Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
 
-# Demo files
+> ⚠️ NOTE ⚠️
+`Route.useLoaderData()` doesn't subscribe to changes in the loader data. If you need to refetch the loader data you can use the `useLoaderQuery` or `useSuspenseQuery` hook instead and sharing the same query key as the loader. This way the loader will fetch the data then on the client side the data will be available in the queryClient cache.
 
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
+# Database
+
+This project uses [Superbase](https://supabase.com/) for the database.
+To start supabase locally, run the following command:
+
+```bash
+pnpm supabase start
+```
+
+Then for generating the migration file after making changes to the database schema in Supabase Studio, run the following command:
+
+```bash
+pnpm supabase:local:migrate
+```
+
+Finally to update the Typescript types for the database, run the following command:
+
+```bash
+pnpm supabase:local:types
+```
 
 # Learn More
 
